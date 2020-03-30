@@ -30,6 +30,95 @@ body {
     background-attachment: fixed;
 }
 
-/**
-* YOUR CODE HERE
-*/
+.logo {
+    position: relative;
+    left: 47.5%;
+    height: 40px;
+    top: 32%;
+}
+
+.login {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    height: auto;
+    width: 30%;
+    background-color: #e6e6e6;
+    padding: 15px;
+    border-radius: 20px 0 20px 0;
+}
+
+input, button {
+    background-color: #d9d9d9;
+    border: none;
+    width: 100%;
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.button{
+    color: #fff;
+    cursor: pointer;
+}
+
+.button:enabled{
+    background-color: #24913e;
+}
+
+.button:hover{
+    background-color: #30ba50;
+}
+
+ul {
+    position: absolute;
+    top: 80px;
+    width: 42%;
+    left:  30%;
+    margin: 0 auto;
+    overflow: auto;
+    list-style-type: none;
+    text-align: center;
+}
+
+li{
+    float: left;
+    background-color: #fff;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    padding-right: 10px;
+}
+
+li img {
+    height: 30px;
+    border-radius: 30px;
+    filter: grayscale(1);
+}
+
+li span {
+    position: relative;
+    left: 5px;
+    bottom: 10px;
+    margin: auto;
+    color: #aaa;
+    font-weight: bold;
+}
+
+li:hover{
+    height: 40px;
+}
+
+li:hover img {
+    position: relative;
+    bottom: 15px;
+    height: 60px;
+    border-radius: 60px;
+    filter: grayscale(0);
+}
+
+li:hover span {
+    position: relative;
+    left: -5px;
+    bottom: 40px;
+}

@@ -1,6 +1,10 @@
 (() => {
-    const selector = selector => /* trecho omitido */
-    const create = element => /* trecho omitido */
+    const selector = selector => {
+        return document.querySelector(selector);
+    }
+    const create = element => {
+        return document.createElement(element);
+    }
 
     const app = selector('#app');
 
@@ -15,7 +19,8 @@
 
     Form.onsubmit = async e => {
         e.preventDefault();
-        const [email, password] = /* trecho omitido */
+
+        const [email, password] = e.target.elements;
 
         const {url} = await fakeAuthenticate(email.value, password.value);
 
@@ -32,53 +37,62 @@
             : button.removeAttribute('disabled');
     };
 
-    Form.innerHTML = /**
-    * bloco de código omitido
-    * monte o seu formulário
-    */
+    Form.innerHTML = 
+    '<input type="text" name="user" value="" class="input" placeholder="Entre com seu e-mail"> '+
+    '<input type="password" name="pass" value="" class="input" placeholder="Digite sua senha supersecreta" >'+
+    '<button type="submit" name="btGo" class="button" disabled="disabled" > Entrar </button> ';
+
 
     app.appendChild(Logo);
     Login.appendChild(Form);
 
     async function fakeAuthenticate(email, password) {
 
-        /**
-         * bloco de código omitido
-         * aqui esperamos que você faça a requisição ao URL informado
-         */
-
+        var request = new XMLHttpRequest(); 
+        request.open("GET", 'http://www.mocky.io/v2/5dba690e3000008c00028eb6',true);
+        request.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+        request.setRequestHeader('Access-Control-Allow-Origin', '*');
+        request.send();
+        var data = JSON.parse(request.responseText);   
+        
         const fakeJwtToken = `${btoa(email+password)}.${btoa(data.url)}.${(new Date()).getTime()+300000}`;
-        /* trecho omitido */
+        localStorage.setItem('token', fakeJwtToken);
 
         return data;
     }
 
     async function getDevelopersList(url) {
-        /**
-         * bloco de código omitido
-         * aqui esperamos que você faça a segunda requisição 
-         * para carregar a lista de desenvolvedores
-         */
+        var request = new XMLHttpRequest(); 
+        request.open("GET", url ,true);
+        request.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+        request.setRequestHeader('Access-Control-Allow-Origin', '*');
+        request.send();
+        var data = JSON.parse(request.responseText);   
+
+        return data;
     }
 
     function renderPageUsers(users) {
         app.classList.add('logged');
-        Login.style.display = /* trecho omitido */
+        Login.style.display = "none";
+        Logo.style.top = "20px";
 
         const Ul = create('ul');
-        Ul.classList.add('container')
+        Ul.classList.add('container');
 
-        /**
-         * bloco de código omitido
-         * exiba a lista de desenvolvedores
-         */
+        var list="";
+        users.forEach(user => {
+            list +='<li><img src="'+user.avatar_url+'" /><span> '+user.login+' </span></li>'
+        });
+
+        Ul.innerHTML = list;
 
         app.appendChild(Ul)
     }
 
-    // init
+
     (async function(){
-        const rawToken = /* trecho omitido */
+        const rawToken = localStorage.getItem('token');
         const token = rawToken ? rawToken.split('.') : null
         if (!token || token[2] < (new Date()).getTime()) {
             localStorage.removeItem('token');
